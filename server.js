@@ -159,9 +159,10 @@ app.delete("/admin/products/:id", async function (req, res) {
   res.redirect("/admin");
 });
 
-// Start the server on port 3000
-app.listen(3000, function () {
-  console.log("Server Started at localhost:3000");
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
 
 // Log a message to indicate that the server.js file is being executed
