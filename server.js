@@ -20,8 +20,7 @@ mongoose.connect(process.env.MONGO_DB_URL)
     console.log("MongoDB Connected");
   })
   .catch((err) => {
-    console.log("MongoDB Connection Failed:", err);
-    process.exit(1); // IMPORTANT for Railway logs clarity
+    console.log("MongoDB Connection Failed:", err.message);
   });
 
 app.set("view engine", "ejs");
@@ -44,12 +43,14 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 // HOME PAGE
+// app.get("/", function(req, res) {
+
+//   res.render("index");
+
+// });
 app.get("/", function(req, res) {
-
-  res.render("index");
-
+  res.send("Railway is working");
 });
-
 
 // PRODUCTS PAGE
 app.get("/products", async function(req, res) {
