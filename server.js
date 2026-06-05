@@ -42,6 +42,10 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
+app.get("/test", (req, res) => {
+  res.json({ message: "server working fine" });
+});
+
 // HOME PAGE
 app.get("/", function(req, res) {
 
@@ -167,8 +171,11 @@ app.delete("/admin/products/:id", async function (req, res) {
   await Product.findByIdAndDelete(req.params.id);
   res.redirect("/admin");
 });
-const PORT = process.env.PORT;
+
+const PORT = process.env.PORT || 8080;
+
 console.log("PORT FROM ENV:", process.env.PORT);
+
 app.listen(PORT, () => {
   console.log("Server running on port", PORT);
 });
