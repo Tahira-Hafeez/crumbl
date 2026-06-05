@@ -1,3 +1,8 @@
+const fs = require("fs");
+
+if (!fs.existsSync("public/uploads")) {
+  fs.mkdirSync("public/uploads", { recursive: true });
+}
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
@@ -11,8 +16,13 @@ const methodOverride = require("method-override"); /*method-override lets EJS fo
 const app = express();
 
 mongoose.connect(process.env.MONGO_DB_URL)
-.then(() => console.log("MongoDB Connected"))
-.catch((err) => console.log(err));
+  .then(() => {
+    console.log("MongoDB Connected");
+  })
+  .catch((err) => {
+    console.log("MongoDB Connection Failed:", err);
+    process.exit(1); // IMPORTANT for Railway logs clarity
+  });
 
 app.set("view engine", "ejs");
 
@@ -161,8 +171,8 @@ app.delete("/admin/products/:id", async function (req, res) {
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+app.listen(PORT, "0.0.0.0", () => {
+  console.log("Server running on port", PORT);
 });
 
 // Log a message to indicate that the server.js file is being executed
