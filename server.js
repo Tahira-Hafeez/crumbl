@@ -43,14 +43,12 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 // HOME PAGE
-// app.get("/", function(req, res) {
-
-//   res.render("index");
-
-// });
 app.get("/", function(req, res) {
-  res.send("Railway is working");
+
+  res.render("index");
+
 });
+
 
 // PRODUCTS PAGE
 app.get("/products", async function(req, res) {
@@ -169,10 +167,9 @@ app.delete("/admin/products/:id", async function (req, res) {
   await Product.findByIdAndDelete(req.params.id);
   res.redirect("/admin");
 });
-
-const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, "0.0.0.0", () => {
+const PORT = process.env.PORT;
+console.log("PORT FROM ENV:", process.env.PORT);
+app.listen(PORT, () => {
   console.log("Server running on port", PORT);
 });
 
