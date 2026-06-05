@@ -8,6 +8,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const Product = require("./model/products");
 
+
 const multer = require("multer");
 const path = require("path");
 const methodOverride = require("method-override"); /*method-override lets EJS forms send PUT and DELETE
@@ -25,7 +26,7 @@ mongoose.connect(process.env.MONGO_DB_URL)
 
 app.set("view engine", "ejs");
 
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true })); // NEW — parses form data
 app.use(methodOverride("_method")); 
 
