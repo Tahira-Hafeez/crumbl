@@ -1,8 +1,10 @@
 const fs = require("fs");
 
-if (!fs.existsSync("public/uploads")) {
-  fs.mkdirSync("public/uploads", { recursive: true });
+const path = require("path"); // move this to top
+if (!fs.existsSync(path.join(__dirname, "public/uploads"))) {
+  fs.mkdirSync(path.join(__dirname, "public/uploads"), { recursive: true });
 }
+
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
@@ -33,9 +35,9 @@ app.use(methodOverride("_method"));
 
 // ── MULTER SETUP ──────────────────────────────────────────────
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "public/uploads"); // save files here
-  },
+ destination: function (req, file, cb) {
+  cb(null, path.join(__dirname, "public/uploads"));
+},
   filename: function (req, file, cb) {
     // e.g.  1715000000000-cookie.png  (unique name)
     cb(null, Date.now() + path.extname(file.originalname));
