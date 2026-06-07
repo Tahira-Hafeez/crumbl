@@ -12,7 +12,7 @@ const Product = require("./model/products");
 
 
 const multer = require("multer");
-const path = require("path");
+
 const methodOverride = require("method-override"); /*method-override lets EJS forms send PUT and DELETE
  requests (HTML forms only support GET/POST)*/
 
